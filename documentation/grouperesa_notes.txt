@@ -1,0 +1,78 @@
+--------------
+Fonctionalités
+--------------
+Le 30/11/2016
+-------------
+Le plugin 'grouperesa' est développé pour compléter l'ensemble :
+- escal (Habillage général paramétrable de Jean-Christophe Villeneuve)
+- agenda événements (gestion du calendrier)
+- reservations_evenements ()
+- reservations_multiples
+- prix_objets
+- déclinaisons(A vérifier).
+
+Le fonctionnement est le suivant :
+L'objet final étant de grouper les réservations suivant les besoins tels que :
+- pour un repas, définir le plan des tables,
+- pour des sorties, établir des groupes (avec ou sans animateur) suivant les niveaux ou les capacités.
+- etc
+
+Pour cela le travail se fait en 4 étapes :
+1)- En gestion privée : Créer un événement en indiquant que les inscriptions sont possibles 
+	et pour combien de personnes; en ajoutant le mot clé 'type_reservation/groupement'
+	
+2)- En gestion privée : Création/Modification des Bases de groupement :
+	Elles sont indépendantes de tout objet éditorial au sens SPIP.
+	Définissent un titre, une description et potentiellement une limite en nombre de places.
+	Si le nombre de place n'est pas renseigné (cas ou il n'y a pas de contrainte), ce sera lors de la 
+		copie vers le Modèle, que l'information sera obligatoire.
+	Ce sont les Bases du processus de regroupement.
+
+3)- En gestion privée : Création/modification des Modèles de groupement.
+	Ils sont associés aux événements, peuvent être aussi nombreux que néccessaire.
+	Ils précisent de façon formelle 2 informations structurantes pour la suite du processus :
+	- Le nombre maxinum de places pour ce modèle,
+	- Si le modèle est clonable directement sur le site public ou non. 
+	Exemple : Pour le cas ou l'organisation d'implantation des tables d'un banquet prévoit des tables 
+		de 8 personnes, il faut créer un Modèle pour 8 places et clonable. 
+		La limite globale des inscriptions étant gérée sur l'événement (A valider).
+
+---------------------
+Structure des scripts
+---------------------
+Le 30/11/2016
+-------------
+Pour intégrer correctement cet ensemble, certains scripts présents dans les plugins nommés 
+	ont été surchargés (liste à faire).
+
+
+Le 22/11/2016
+-------------
+La Fabrique : Générateur initial du plugin.
+Les Fichiers échafaudés :
+SPIP génère automatiquement en cache ces fichiers s’ils sont absents. Vous pouvez cependant en créer 
+	certains afin de les modifier pour changer le comportement par défaut de ce que propose SPIP. 
+	Par ailleurs, ces fichiers ont parfois des ajouts minimes de fonctionnalités, alors indiquées.
+	
+- prive/objets/infos/resa_mgrp.html : Infos Statut de navigation d'un modele de groupement 
+	de réservation.
+- prive/objets/infos/resa_grp.html : Infos Statut de navigation d'un groupement de réservation.
+- prive/squelettes/contenu/resa_mgrps.html : Infos navigation d'un modele de groupement de 
+	réservation.
+- prive/squelettes/contenu/resa_mgrp_edit.html : Pilote d'edition d'un modèle de groupement 
+	de réservation avec recherche.
+- prive/squelettes/contenu/resa_grps.html : Infos navigation d'un groupement de réservation 
+	avec recherche.
+- prive/squelettes/contenu/resa_grp_edit.html : Pilote d'edition d'un groupement de réservation.
+
+Les Fichiers spécifiques :
+- action/supprimer_resa_mgrp.php : Action de suppression de l’objet 
+- action/supprimer_resa_grp.php : Action de suppression de l’objet 
+	(ce fichier est créé automatiquement si l’objet ne gère pas de statut).
+
+Les Saisies :
+- saisies/resa_bgrps : sélecteur des base de groupement.
+- saisies/resa_mgrps : sélecteur des modèle de groupement.
+- saisies/resa_grps : sélecteur des groupements (surtout sur le public).
+
+	

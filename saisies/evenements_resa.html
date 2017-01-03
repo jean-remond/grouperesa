@@ -1,0 +1,55 @@
+[(#REM) <!-- 
+ * Liste des evenements reservables et regroupables pour saisie/sélection.
+ * D'apres reservation-evenements v1.21.33 : saisies/articles_evenements.html
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/saisies/ - Saisies
+ * --
+ * @todo : 
+ * Fait:
+ * JR-17/12/2016-Creation du fihier cf Codep21resa.
+ * JR-07/12/2016-Ajout critere mot-cle 'regroupe' sur evenements.
+ * JR-26/11/2016-Ajout critere inscription=1 sur evenements.
+ * JR-26/11/2016-Copie du squelette.
+ --> ]
+[(#ENV{multiple}|oui)
+  [(#SET{valeur,[(#ENV*{valeur}|is_array|?{[(#ENV*{valeur})],[(#ENV*{valeur}|explode{','})]})]})]
+]
+
+[(#ENV{evenement_anterieurs}|=={on}|?{
+  #SET{date,0000-00-00 00:00:00}
+  #SET{senstri,1}
+  ,
+  #SET{senstri,0}
+  #SET{date,#DATE}
+})]
+<select name="#ENV{nom}[(#ENV{multiple}|?{\[\]})]" id="champ_[(#ENV{nom}|saisie_nom2classe)]"[ class="(#ENV{class})"][(#ENV{multiple}|oui) multiple="multiple" size="#ENV{size,10}"][ disabled="(#ENV{disable})"]>
+  [(#ENV{cacher_option_intro}|ou{#ENV{multiple}}|non)
+  <option value="">[(#ENV{option_intro})]</option>]
+  <BOUCLE_articles(ARTICLES){id_article ?IN #ENV{id_article}}{id_rubrique ?IN #ENV{id_rubrique}}{statut?}{recherche?}{tout}{par num titre, titre}>
+    #SET{evenements_source,#ARRAY}
+    <B_evenements>
+      <optgroup label="#TITRE">
+        #SET{titre,#TITRE}
+        <BOUCLE_evenements(EVENEMENTS){id_article}{inscription==1}{titre_mot = 'regroupe'}{date_fin>#GET{date}}{par date_debut}{inverse #GET{senstri}}>
+          #SET{date_fin,#DATE_FIN}
+          <BOUCLE_evenements_lies(EVENEMENTS){id_evenement_source=#ID_EVENEMENT}{!par date_fin}{0,1}>
+            #SET{date_fin,#DATE_FIN}
+          </BOUCLE_evenements_lies>
+            [(#ID_EVENEMENT_SOURCE|=={0}|oui|et{#ID_EVENEMENT|in_array{#GET{evenements_source}}|non})
+              <INCLURE{fond=saisies/inc_articles_evenements,id_article,id_evenement,id_evenement_source,titre,titre_article=#GET{titre},date_debut,date_fin=#GET{date_fin},env}/>
+              #SET{evenements_source,#GET{evenements_source}|push{#ID_EVENEMENT}}
+            ]
+            [(#ID_EVENEMENT_SOURCE|!={0}|oui|et{#ID_EVENEMENT_SOURCE|in_array{#GET{evenements_source}}|non})
+              <INCLURE{fond=saisies/inc_articles_evenements,id_article,id_evenement=#ID_EVENEMENT_SOURCE,id_evenement_source,titre,titre_article=#GET{titre},date_debut=#INFO_DATE_DEBUT{evenement,#ID_EVENEMENT_SOURCE},date_fin=#GET{date_fin},env}/>
+            #SET{evenements_source,#GET{evenements_source}|push{#ID_EVENEMENT_SOURCE}}
+            ]
+            
+          </BOUCLE_evenements>
+      </optgroup>
+    </B_evenements>
+  </BOUCLE_articles>
+</select>

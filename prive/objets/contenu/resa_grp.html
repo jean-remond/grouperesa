@@ -1,0 +1,37 @@
+[(#REM) <!-- 
+ * Contenu d'un groupement de réservation.
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/prive/contenu - Contenu
+ * --
+ * @todo : 
+ * Fait:
+ * JR-26/11/2016-Cree par La Fabrique.
+  --> ]
+<BOUCLE_resa_grp(RESA_GRPS){id_resa_grp}{statut?}>
+[<div class="champ contenu_titre[ (#TITRE*|strlen|?{'',vide})]">
+	<label><:resa_grp:champ_titre_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{titre} titre">(#TITRE)</span>
+</div>]
+
+[<div class="champ contenu_descriptif[ (#DESCRIPTIF*|strlen|?{'',vide})]">
+	<label><:resa_grp:champ_descriptif_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{descriptif} descriptif">(#DESCRIPTIF)</span>
+</div>]
+
+[<div class="champ contenu_place_grp[ (#PLACE_GRP*|strlen|?{'',vide})]">
+	<label><:resa_grp:champ_place_grp_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{place_grp} place_grp">(#PLACE_GRP)</span>
+</div>]
+
+[<div class="champ contenu_clonable[ (#CLONABLE*|strlen|?{'',vide})]">
+	<label><:resa_grp:champ_clonable_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{clonable} clonable">(#CLONABLE)</span>
+</div>]
+
+<INCLURE{fond=prive/objets/contenu/resa_grp_origine, env} />
+
+</BOUCLE_resa_grp>

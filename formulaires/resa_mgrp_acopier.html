@@ -1,0 +1,37 @@
+[(#REM) <!-- 
+ * Liste pour selection des Modeles de groupements de réservation pour saisie/sélection.
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/formulaires/ - Saisies
+ * --
+ * @todo : 
+ * Fait:
+ * JR-17/12/2016-Creation du fihier cf codep21resa.
+ * JR-01/12/2016-Creation.
+ --> ]
+
+<div class="formulaire_spip formulaire_#FORM">
+
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	[(#ENV{editable}|oui)
+		<form name="formulaire_#FORM" action="#ENV{action}" method="post"><div>
+
+			#ACTION_FORMULAIRE{#ENV{action}}
+			<ul>
+				[(#SAISIE{resa_mgrps,id_resa_mgrp,obligatoire=oui,
+					label=<:resa_mgrp:intro_resa_mgrp:>,
+					explication=<:resa_mgrp:intro_resa_mgrp_explication:>,
+					class=chosen, 
+					option_intro=<:resa_mgrp:intro_resa_mgrp:>})]
+			</ul>
+			<p class="boutons">
+				<input type="submit" name="ok" value="Choisir" />
+			</p>
+		</div></form>
+	]
+</div>

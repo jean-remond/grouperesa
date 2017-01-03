@@ -1,0 +1,74 @@
+[(#REM) <!-- 
+ * Plan des groupes de reservation pour un evennement 
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/public/squelettes/liste - Contenu
+ * --
+ * @todo : 
+ * Fait:
+ * JR-12/12/2016-Revue pour integrer resa_grps_liens.
+ * JR-27/11/2016-Creation du squelette.
+ --> ]
+<div class="ajax">
+	<table>
+	<BOUCLE_articles(ARTICLES){id_article ?IN #ENV{id_article}}{id_rubrique ?IN #ENV{id_rubrique}}{statut?}{recherche?}{tout}{par num titre, titre}>
+	<tr>
+		<td>
+		<h1>#TITRE</h1>
+		<table>	
+		<BOUCLE_evenements(EVENEMENTS){id_article}{inscription==1}{type_mot = 'type_reservation'}{titre_mot = 'regroupe'}{par date_debut}>
+		<tr>
+			<th>
+			<h2>#TITRE, #DATE_DEBUT, #DATE_FIN</h2>
+
+			<BOUCLE_groupes(RESA_GRPS){id_evenement}{tout}>
+			<tr>
+				<td>
+				<h3>#_groupes:TITRE</h3>
+				<p>#_groupes:DESCRIPTIF  </p>
+	
+				<B_groupes_liens>	
+					<p>[(#TOTAL_BOUCLE|singulier_ou_pluriel{grouperesa:info_1_place_occ,grouperesa:info_nb_places_occ})],
+						[(#_groupes:PLACE_GRP|moins{#TOTAL_BOUCLE}|singulier_ou_pluriel{grouperesa:info_1_place_dispo,grouperesa:info_nb_places_dispos})]
+						[(#_groupes:PLACE_GRP|moins{#TOTAL_BOUCLE}|non)<:grouperesa:info_0_place_dispo:>]
+					</p>
+				<BOUCLE_groupes_liens(spip_resa_grps_liens){id_resa_grp=#_groupes:ID_RESA_GRP}{objet=='reservations_detail'}{tout}>
+
+					<B_reservations_details>
+					<BOUCLE_reservations_details(RESERVATIONS_DETAILS){id_reservations_detail=#_groupes_liens:ID_RESERVATIONS_DETAIL}{tout}>
+					<table>
+
+						<BOUCLE_reservations(RESERVATIONS){id_reservation=#_reservations_details:ID_RESERVATION}{tout}>
+						<tr>
+							<td class="plan_occupant">
+								<BOUCLE_auteur(AUTEURS){id_auteur=#_reservations:ID_AUTEUR}{tout}>
+									<p>#NOM, #_reservations:REFERENCE, #_reservations_details:STATUT</p>
+								</BOUCLE_auteur>
+								</B_auteur>
+									<p>#_reservations:NOM, #_reservations:REFERENCE, #_reservations_details:STATUT</p>
+								<//B_auteur>
+						</BOUCLE_reservations>
+
+					</BOUCLE_reservations_details>
+					
+					</B_reservations_details>
+						
+					<//B_reservations_details>
+					</table>
+
+				</BOUCLE_groupes_liens>
+				</B_groupes_liens>
+						<p>[(#_groupes:PLACE_GRP|singulier_ou_pluriel{grouperesa:info_1_place_dispo,grouperesa:info_nb_places_dispos})]
+				<//B_groupes_liens>
+				
+			</BOUCLE_groupes>
+            
+		</BOUCLE_evenements>
+		</table>
+
+	</BOUCLE_articles>
+</table>
+</div>

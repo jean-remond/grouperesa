@@ -1,0 +1,30 @@
+[(#REM) <!-- 
+ * Contenu de resa_bgrp
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/prive/contenu - Contenu
+ * --
+ * @todo : 
+ * Fait:
+ * JR-16/12/2016-Creation du fihier.
+ --> ]
+<BOUCLE_resa_bgrp(RESA_BGRPS){id_resa_bgrp}{statut?}>
+[<div class="champ contenu_titre[ (#TITRE*|strlen|?{'',vide})]">
+	<label><:resa_bgrp:champ_titre_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{titre} titre">(#TITRE)</span>
+</div>]
+
+[<div class="champ contenu_descriptif[ (#DESCRIPTIF*|strlen|?{'',vide})]">
+	<label><:resa_bgrp:champ_descriptif_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{descriptif} descriptif">(#DESCRIPTIF)</span>
+</div>]
+
+<div class="champ contenu_place_bgrp">
+	<label><:resa_bgrp:champ_place_bgrp_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{place_bgrp} place_bgrp">(#PLACE_BGRP)</span>
+</div>
+
+</BOUCLE_resa_bgrp>

@@ -1,0 +1,22 @@
+[(#REM) <!-- 
+ * ?? Infos navigation d'un modele de groupement de réservation.
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/prive/squelettes/contenu - Contenu
+ * --
+ * @todo : 
+ * Fait:
+ * JR-26/11/2016-Cree par La Fabrique.
+ --> ]
+
+#FORMULAIRE_RECHERCHE_ECRIRE{#SELF,ajax}
+<div class="nettoyeur"></div>
+
+<INCLURE{fond=prive/objets/liste/resa_mgrps, env, ajax, sinon=<:resa_mgrp:info_aucun_resa_mgrp:>}>
+
+[(#AUTORISER{creer,resa_mgrp})
+	[(#URL_ECRIRE{resa_mgrp_edit,new=oui}|icone_verticale{<:resa_mgrp:icone_creer_resa_mgrp:>,resa_mgrp,new,right})]
+]

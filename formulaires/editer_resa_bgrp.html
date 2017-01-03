@@ -1,0 +1,44 @@
+[(#REM) <!-- 
+ * Gestion du formulaire d'édition de resa_bgrp
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/formulaires/ - Saisies
+ * --
+ * @todo : 
+ * Fait:
+ * JR-16/12/2016-Creation du fihier.
+ * JR-26/11/2016-Cree par La Fabrique.
+ --> ]
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_resa_bgrp,nouveau}'>
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	[(#ENV{editable})
+	<form method="post" action="#ENV{action}"><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type="hidden" name="id_resa_bgrp" value="#ENV{id_resa_bgrp}" />
+		<div class="editer-groupe">
+ 
+			[(#SAISIE{input, titre,
+				label=<:resa_bgrp:champ_titre_label:>,
+				explication=<:resa_bgrp:champ_titre_explication:> })]
+ 
+			[(#SAISIE{textarea, descriptif,
+				label=<:resa_bgrp:champ_descriptif_label:>,
+				conteneur_class=pleine_largeur,
+				 rows=3})]
+ 
+			[(#SAISIE{input, place_bgrp,
+				label=<:resa_bgrp:champ_place_bgrp_label:>,
+				explication=<:resa_bgrp:champ_place_bgrp_explication:> })]
+
+		</div>
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class="boutons"><input type="submit" class="submit" value="<:bouton_enregistrer:>" /></p>
+	</div></form>
+	]
+</div>

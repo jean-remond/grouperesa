@@ -1,0 +1,21 @@
+[(#REM) <!-- 
+ * Affichage de l'Origine d'un groupement de réservation.
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/prive/contenu - Contenu
+ * --
+ * @todo : 
+ * Fait:
+ * JR-17/12/2016-Creation du fihier.
+  --> ]
+<BOUCLE_resa_grp(RESA_GRPS){id_resa_grp}{statut?}>
+
+[<div class="champ contenu_id_resa_grp[ (#CLONABLE*|strlen|?{'',vide})]">
+	<label><:resa_grp:champ_id_resa_mgrp_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{id_resa_mgrp} id_resa_mgrp">(#ID_RESA_MGRP)</span>
+</div>]
+
+</BOUCLE_resa_grp>

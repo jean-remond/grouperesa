@@ -1,0 +1,27 @@
+[(#REM) <!-- 
+ * Liste des Bases de groupements de réservation pour saisie/sélection.
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/formulaires/ - Saisies
+ * --
+ * @todo : 
+ * Fait:
+ * JR-16/12/2016-Creation du fihier.
+ --> ]
+
+[(#ENV{multiple}|oui)
+	[(#SET{valeur,[(#ENV*{valeur}|is_array|?{[(#ENV*{valeur})],[(#ENV*{valeur}|explode{','})]})]})]
+]
+<select name="#ENV{nom}[(#ENV{multiple}|?{\[\]})]" id="champ_[(#ENV{nom}|saisie_nom2classe)]"[ class="(#ENV{class})"][(#ENV{multiple}|oui) multiple="multiple" size="#ENV{size,10}"][ disabled="(#ENV{disable})"]>
+	[(#ENV{cacher_option_intro}|ou{#ENV{multiple}}|non)
+		<option value="">[(#ENV{option_intro})]</option>]
+	<BOUCLE_resa_bgrps(RESA_BGRPS){id_resa_bgrp?}{statut?}{recherche?}{par num titre, titre}>
+		[(#ENV{multiple}|oui)
+		<option value="#ID_RESA_BGRP"[(#ID_RESA_BGRP|in_array{#ENV{valeur_forcee,#GET{valeur,#ENV{defaut,#ARRAY}}}}|oui) selected="selected"]>#TITRE</option>]
+		[(#ENV{multiple}|non)
+		<option value="#ID_RESA_BGRP"[(#ID_RESA_BGRP|=={#ENV{valeur_forcee,#ENV{valeur,#ENV{defaut}}}}|oui) selected="selected"]>#TITRE</option>]
+	</BOUCLE_resa_bgrps>
+</select>

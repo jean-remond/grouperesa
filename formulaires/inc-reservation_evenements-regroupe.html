@@ -1,0 +1,39 @@
+[(#REM) <!-- 
+ * Formulaire de gestion des réservations :
+ * Dans le cadre de l'ajout de champs sur les evennements, presentation de ces champs.
+ * D'apres escal v3.85.16 rubrique.html.
+ * Pourquoi un sous-formulaire ? 
+ * => JR-18/10/2012-Si ENV editable sur le formulaire, il ne faut pas de boucle interne !!
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/formulaires/ - Saisies
+ * --
+ * @todo : JR-18/12/2016-Utiliser F(grouperesa_evenement_regroupe) pour eviter le squelette inc-reservations_evenements-resa_grp.html.
+ * Fait:
+ * JR-06/12/2016-Ajout bouton creation nouveau groupe.
+ * JR-03/12/2016-Utilisation de la Saisie Resa_grps.
+ * JR-20/11/2016-Creation de la noisette pour gerer le groupe de reservation (ici les tables).
+ --> ]
+	
+<div class="regroupe">
+	[(#REM) gestion des groupements disponibles ]
+
+	[(#SAISIE{resa_grps, id_resa_grp, obligatoire=oui,
+		label=<:grouperesa:grp_dispo:>,
+		explication=<:grouperesa:grp_dispo_exp:>,
+		option_intro=<:grouperesa:intro_resa_grp:>,
+	})]
+</div>
+
+[(#AUTORISER{creer,resa_grp,'new'})
+	<div class="regroupe_action">
+	[(#URL_PAGE{resa_groupe}|
+		parametre_url{id_resa_grp,'new'}|
+		parametre_url{id_evenement,#ENV{id_evenement}}|
+		parametre_url{url,[(#SELF|parametre_url{'var_mode','calcul'})],&}|
+		icone_verticale{<:grouperesa:icone_creer_resa_grp:>,resa_grp,edit,right ajax preload})]
+	</div>
+]

@@ -1,0 +1,29 @@
+[(#REM) <!-- 
+ * Formulaire de gestion des réservations :
+ * Dans le cadre de specificites sur les reservations d'evennements, 
+ * 	recherche de ces cas cf mots-cle associes a evenement.
+ * D'apres escal v3.85.16 rubrique.html.
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/formulaires/ - Saisies
+ * --
+ * @todo : JR-18/12/2016-Utiliser F(grouperesa_evenement_regroupe) pour eviter ce squelette.
+ * Fait:
+ * JR-22/11/2016-Creation de la noisette pour gerer les cas de groupe de reservation.
+ --> ]
+	
+[(#REM) JR-22/11/2016-Ajout du formulaire specifique. ]
+<!-- on cherches si l'evenement est rattache a un mot clef du groupe type_reservation-->
+#SET{type, ''}
+<BOUCLE_type_reservation(MOTS){id_evenement=#ENV{id_evenement}}{type=type_reservation}{0,1}{tout}>
+	<!-- si oui, on stocke le mot-cle dans la variable "type" -->
+	[(#TITRE|setenv{type_reservation})] 
+</BOUCLE_type_reservation>
+
+<!-- s'il y a une noisette associee, on l'affiche -->
+[(#ENV{type_reservation}|oui)
+[(#INCLURE{fond=formulaires/inc-reservation_evenements-[(#ENV{type_reservation}|trim)]} {env} )]
+]

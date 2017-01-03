@@ -1,0 +1,22 @@
+Recherche plan de table :
+-----------------------
+SELECT evt.titre, evt.id_evenement, evt.id_article, 
+	evt.date_debut, evt.date_fin, evt.places,
+	grp.titre, grp.place_grp,
+	det.statut,
+	res.reference, res.nom, res.email
+FROM `spip_evenements` as evt
+	JOIN `spip_mots_liens` as motl
+		ON (evt.id_evenement=motl.id_objet and motl.objet='evenement')
+	JOIN `spip_mots` as mot
+		ON (motl.id_mot=mot.id_mot)
+	LEFT JOIN `spip_resa_grps` as grp
+		ON (evt.id_evenement=grp.id_evenement)
+	LEFT JOIN `spip_reservations_details` as det
+		ON (grp.id_resa_grp=det.id_resa_grp)
+	JOIN `spip_reservations` as res
+		ON (det.id_reservation=res.id_reservation)
+		
+where evt.id_article=53 and evt.inscription=1
+
+and mot.type='type_reservation' and mot.titre='regroupe'

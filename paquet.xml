@@ -1,0 +1,89 @@
+<paquet
+	prefix='grouperesa'
+	categorie='date'
+	version="1.5.0"
+	etat='dev'
+	compatibilite='[3.1.0;3.1.*]'
+	logo='prive/themes/spip/images/grouperesa-64.png'
+	documentation=''
+	schema='201612171840' 
+>
+<!--
+ * JR-03/01/2017-V1.5.0-201612171840-Chgt dans GitHub.
+ * JR-03/01/2017-V1.4.21-201612171840-Precision des commentaires. Precision documentaire.
+ * JR-21/12/2016-V1.4.19-201612171840-Le pipeline post-edition faute de frappe cle 'id_reservations_detail'.
+ * JR-20/12/2016-V1.4.18-201612171840-Le pipeline post-edition faute de frappe cle 'id_reservations_detail'.
+ * JR-19/12/2016-V1.4.15-201612171840-Le pipeline post-insertion n'a pas charge tous les champs,
+ *	dont id_evenement. Remplace par post_edition.
+ * JR-18/12/2016-V1.4.12-201612171840-Implementation (resa_grp) pour public.
+ * JR-17/12/2016-V1.3.2-201612171840-Creation des groupes (resa_grp).
+ * JR-16/12/2016-V1.2.3-201612170030-Creation des modeles (resa_mgrp).
+ * JR-16/12/2016-V1.1.1-201612161730-Forcer installation base.
+ * JR-16/12/2016-V1.1.0-201612161700-Création du plugin pour valider la fonction.
+ * -->
+
+	<nom>Groupement de Reservations</nom>
+	<!-- Tout pour les Regroupements des Reservations aux événements -->
+
+	<!-- cette balise peut être présente plusieurs fois s'il y a plusieurs auteurs --> 
+	<auteur>Jean-Gabriel Remond</auteur>
+
+	<licence>GNU/GPL</licence>
+
+	<!--
+		Exemple de commandes
+		* dependances
+		<necessite nom="saisies" compatibilite="[2.4.0;]" />
+		<utilise nom="saisies" compatibilite="[2.4.0;]" />
+		<lib nom="simplehtmldom" lien="http://chemin_vers_archive.zip" />
+		* pipelines
+		<pipeline nom="autoriser" inclure="grouperesa_autorisations.php" />
+		<pipeline nom="insert_head" inclure="grouperesa_pipelines.php" />
+		* declarer un pipeline 
+		<pipeline nom="mon_pipeline" action="" />
+		* parents de menus de SPIP :
+				menu_accueil (à éviter), menu_edition, menu_publication,
+				menu_activite, menu_squelette, menu_administration, menu_configuration 
+		<menu nom="grouperesa" titre="grouperesa:grouperesa_titre" parent="menu_edition"  icone="images/grouperesa-16.png" />
+		* parents d'onglets... configuration, plugins, statistiques, ... 
+		<onglet nom="grouperesa" titre="grouperesa:grouperesa_titre" parent="configuration" icone="images/grouperesa-24.png" />
+	-->
+
+	<!-- <necessite nom="declinaisons" /> -->
+	<necessite nom="prix" />
+	<necessite nom="prix_objets" />
+	<necessite nom="reservation_evenement" />
+	<necessite nom="reservations_multiples" />
+	<necessite nom="saisies" compatibilite="[2.4.0;]" /> 
+	<necessite nom="verifier" />
+	<necessite nom="yaml" />
+
+	<necessite nom="saisies" compatibilite="[2.4.0;]" /> 
+
+
+	<!-- Les pipelines pour la base de donnees -->
+	<pipeline nom="declarer_tables_objets_sql" inclure="base/grouperesa.php" /> 
+	<pipeline nom="declarer_tables_interfaces" inclure="base/grouperesa.php" /> 
+	<pipeline nom="declarer_tables_auxiliaires" inclure="base/grouperesa.php" /> 
+	<pipeline nom="optimiser_base_disparus" inclure="grouperesa_pipelines.php" /> 
+	<pipeline nom="post_edition" inclure="grouperesa_pipelines.php" />
+	<!-- <pipeline nom="post_edition" inclure="grouperesa_pipelines.php" /> -->
+	<!-- <pipeline nom="reservation_evenement_donnees_details" inclure="grouperesa_pipelines.php" /> -->
+
+	<!-- Les pipelines de securite -->
+	<pipeline nom="autoriser" inclure="grouperesa_autorisations.php" /> 
+
+	<!-- Les pipelines d'affichage/saisie -->
+	<pipeline nom="affiche_enfants" inclure="grouperesa_pipelines.php" /> 
+	<pipeline nom="affiche_milieu" inclure="grouperesa_pipelines.php" /> 
+	<pipeline nom="boite_infos" inclure="grouperesa_pipelines.php" /> 
+	<pipeline nom="formulaire_verifier" inclure="grouperesa_pipelines.php" />
+	<pipeline nom="objet_compte_enfants" inclure="grouperesa_pipelines.php" /> 
+	<pipeline nom="recuperer_fond" inclure="grouperesa_pipelines.php" />
+
+	<!-- Les menus -->
+	<menu nom="resa_bgrps" titre="resa_bgrp:titre_resa_bgrps" parent="menu_edition" icone="images/resa_bgrp-16.png" action="resa_bgrps" />
+	<menu nom="resa_mgrps" titre="resa_mgrp:titre_resa_mgrps" parent="menu_edition" icone="images/resa_mgrp-16.png" action="resa_mgrps" /> 
+	<menu nom="resa_grps" titre="resa_grp:titre_resa_grps" parent="menu_edition" icone="images/resa_grp-16.png" action="resa_grps" /> 
+
+</paquet>

@@ -1,0 +1,57 @@
+[(#REM) <!-- 
+ * Liste des groupements de réservation connus.
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/prive/objets/liste - Contenus
+ * --
+ * @todo : 
+ * Fait:
+ * JR-26/11/2016-Ajout du nombre de places maxi du modele de grp.
+ * JR-26/11/2016-Cree par La Fabrique.
+ --> ]
+
+[(#SET{defaut_tri,#ARRAY{
+	place_grp,-1, 
+	titre,1, 
+	date_publication,-1, 
+	id_resa_grp,1,
+	points,-1
+}})]<B_liste_resa_grps>
+#ANCRE_PAGINATION
+<div class="liste-objets resa_grps">
+<table class="spip liste">
+	[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{resa_grp:info_1_resa_grp,resa_grp:info_nb_resa_grps}})</strong></caption>]
+	<thead>
+		<tr class="first_row">
+			<th class="picto" scope="col"></th>
+			<th class="statut" scope="col">[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th> 
+			<th class="id" scope="col">[(#TRI{place_grp,<:resa_grp:champ_place_grp_label:>,ajax})]</th>
+			<th class="titre" scope="col">[(#TRI{titre,<:resa_grp:champ_titre_label:>,ajax})]</th>
+			<th class="date" scope="col">[(#TRI{date_publication,<:date:>,ajax})]</th> 
+			<th class="id" scope="col">[(#TRI{id_resa_grp,<:info_numero_abbreviation:>,ajax})]</th>
+		</tr>
+	</thead>
+	<tbody>
+	<BOUCLE_liste_resa_grps(RESA_GRPS){id_mot?}{id_auteur?}{where?}{statut?}{recherche?}{tri #ENV{par,num titre},#GET{defaut_tri}}{par titre}{pagination #ENV{nb,10}}>
+		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+			<td class="picto">[(#CHEMIN_IMAGE{resa_grp-16.png}|balise_img)]</td>
+			<td class="statut">[(#STATUT|puce_statut{resa_grp,#ID_RESA_GRP})]</td> 
+			<td class="id">[(#PLACE_GRP)]</td>
+			<td class="titre principale">[(#LOGO_RESA_GRP|image_reduire{20,26})]<a href="[(#ID_RESA_GRP|generer_url_entite{resa_grp})]" title="<:info_numero_abbreviation|attribut_html:> #ID_RESA_GRP">[(#RANG). ]#TITRE</a></td>
+			<td class="date secondaire">[(#DATE_PUBLICATION|affdate_jourcourt)]</td> 
+			<td class="id">[(#AUTORISER{modifier,resa_grp,#ID_RESA_GRP}|?{
+				<a href="[(#URL_ECRIRE{resa_grp_edit,id_resa_grp=#ID_RESA_GRP})]">#ID_RESA_GRP</a>,
+				#ID_RESA_GRP
+			})]</td>
+		</tr>
+	</BOUCLE_liste_resa_grps>
+	</tbody>
+</table>
+[<p class="pagination">(#PAGINATION{prive})</p>]
+</div>
+</B_liste_resa_grps>[
+<div class="liste-objets resa_grps caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+]<//B_liste_resa_grps>

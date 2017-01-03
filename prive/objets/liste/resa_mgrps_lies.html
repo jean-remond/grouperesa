@@ -1,0 +1,78 @@
+[(#REM) <!-- 
+ * Liste des modeles de groupement de réservation lies.
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/prive/objets/liste - Contenu
+ * --
+ * @todo : JR-14/11/2016-Ajouter nombre maxi de places du modele de grp.
+ * Fait:
+ * JR-26/11/2016-Cree par La Fabrique.
+ --> ]
+
+[(#SET{defaut_tri,#ARRAY{
+	multi titre,1,
+	date_publication,-1, 
+	id_resa_mgrp,1
+}})
+]
+#SET{selection,#ENV**{selection,#ENV{objet_source}|lister_objets_lies{#ENV{objet},#ENV{id_objet},#ENV{_objet_lien}}}}
+#SET{debut,#ENV{debutresl,#EVAL{_request("debutresl");}}}
+<B_liste_resa_mgrps>
+[(#REM) En cas de pagination indirecte @32, il faut refaire le set car la boucle
+a mis a jour la valeur avec la page reelle]
+#SET{debut,#ENV{debutresl,#EVAL{_request("debutresl");}}}
+#SET{afficher_lettres,#TRI|=={'multi titre'}|oui}
+#ANCRE_PAGINATION
+<div class="liste-objets liste-objets-lies resa_mgrps">
+<table class="spip liste">
+[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{resa_mgrp:info_1_resa_mgrp,resa_mgrp:info_nb_resa_mgrps}})</strong></caption>]
+	<thead>
+		#SET{p,''}
+		<BOUCLE_lettre(RESA_MGRPS){tout}{id_resa_mgrp IN #GET{selection}}{where?}{statut?}
+			{tri #ENV{par,multi titre},#GET{defaut_tri}}{id_resa_mgrp==#GET{afficher_lettres}|?{'.*','A'}}>[
+		(#TITRE**|extraire_multi|initiale|unique|oui)
+		[(#SET{p,#GET{p}|concat{
+		#SELF|parametre_url{debutresl,@#ID_RESA_MGRP}|ancre_url{paginationresl}|afficher_initiale{#TITRE**|extraire_multi|initiale{},#COMPTEUR_BOUCLE,#GET{debut},#ENV{nb,10}}
+		}})]
+		]#SAUTER{#ENV{nb,10}|moins{#COMPTEUR_BOUCLE|=={1}|?{2,1}}}</BOUCLE_lettre>[
+		(#SET{p,
+			#GET{p}|concat{
+				#REM|afficher_initiale{#REM,#TOTAL_BOUCLE,#GET{debut},#ENV{nb,10}}
+			}
+		})]</B_lettre>
+
+		[<tr><td colspan="4"><p class="pagination">(#GET{p})</p></td></tr>]
+
+		<tr class="first_row">
+			<th class="statut" scope="col">[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th> 
+			<th class="titre" scope="col">[(#TRI{multi titre,<:resa_mgrp:champ_titre_label:>,ajax})]</th>
+			<th class="action" scope="col"></th>
+		</tr>
+	</thead>
+	<tbody>
+	<BOUCLE_liste_resa_mgrps(RESA_MGRPS){id_resa_mgrp IN #GET{selection}}{statut?}
+		{tri #ENV{par,multi titre},#GET{defaut_tri}}{pagination #ENV{nb,10} resl}>
+		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})][ (#EXPOSE|unique)][ (#TITRE**|extraire_multi|initiale|=={#ENV{i}}|?{on}|unique)][(#ID_RESA_MGRP|=={#ENV{id_lien_ajoute}}|oui)append]">
+			<td class="statut">[(#STATUT|puce_statut{resa_mgrp})]</td> 
+			<td class="titre">[(#LOGO_RESA_MGRP|image_reduire{20,20})]<a href="[(#ID_RESA_MGRP|generer_url_entite{resa_mgrp})]">#TITRE</a></td>
+
+			<td class="action">
+				[(#ENV{editable}|oui)
+					<button type="submit" class="button link delete" name="supprimer_lien\[resa_mgrp-#ID_RESA_MGRP-#OBJET-#ID_OBJET\]" value="X"><:resa_mgrp:retirer_lien_resa_mgrp:> [(#CHEMIN_IMAGE{supprimer-12.png}|balise_img{'X'})]</button>
+				]
+			</td>
+		</tr>
+	</BOUCLE_liste_resa_mgrps>
+	</tbody>
+</table>
+[<p class="pagination">(#PAGINATION{prive})</p>]
+[(#GRAND_TOTAL|>{3}|oui)<div class="action"><button type="submit" class="button link" name="supprimer_lien\[resa_mgrp-*-#OBJET-#ID_OBJET\]" value="X"><:resa_mgrp:retirer_tous_liens_resa_mgrps:> [(#CHEMIN_IMAGE{supprimer-8.png}|balise_img{'X'})]</button></div>]
+</div>
+</B_liste_resa_mgrps>
+<div class="liste-objets liste-objets-lies resa_mgrps caption-wrap">
+	<strong class="caption">[(#ENV*{titre,<:resa_mgrp:info_aucun_resa_mgrp:>})]</strong>
+</div>
+<//B_liste_resa_mgrps>

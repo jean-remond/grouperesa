@@ -1,0 +1,45 @@
+[(#REM) <!-- 
+ * Infos Statut de navigation d'un groupement de réservation
+ *  et ajoute le lien de prévisualisation.
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/prive/objets/infos - Contenu
+ * --
+ * @todo : 
+ * Fait:
+ * JR-26/11/2016-Cree par La Fabrique.
+ --> ]
+
+<BOUCLE_resa_grp(RESA_GRPS){id_resa_grp=#ENV{id}}{statut?}>
+<div class="infos">
+[(#SET{texte_objet,<:resa_grp:titre_resa_grp:>})]
+<div class="numero"><:titre_cadre_numero_objet{objet=#GET{texte_objet}}:><p>#ID_RESA_GRP</p></div>
+
+[(#FORMULAIRE_INSTITUER_OBJET{resa_grps,#ID_RESA_GRP})]
+
+<div class='nb_elements'><!--nb_elements--></div>
+
+[(#REM)
+
+	Bouton voir en ligne
+
+]
+<BOUCLE_publie(RESA_GRPS){id_resa_grp}>
+	[(#VAL{redirect}
+		|generer_url_action{type=resa_grps&id=#ID_RESA_GRP}
+		|parametre_url{var_mode,calcul}
+		|icone_horizontale{<:icone_voir_en_ligne:>,racine})]
+</BOUCLE_publie>
+	[(#AUTORISER{previsualiser,resa_grps,#ID_RESA_GRP,'',#ARRAY{statut,#STATUT}})
+		[(#VAL{redirect}
+			|generer_url_action{type=resa_grps&id=#ID_RESA_GRP}
+			|parametre_url{var_mode,preview}
+			|icone_horizontale{<:previsualiser:>,preview})]
+	]
+<//B_publie>
+
+</div>
+</BOUCLE_resa_grp>

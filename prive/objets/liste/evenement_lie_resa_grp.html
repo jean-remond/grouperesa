@@ -1,0 +1,46 @@
+[(#REM) <!-- 
+ * Liste des Evenements lies au groupe de reservation.
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/prive/objets/liste/ - Contenu
+ * --
+ * @todo : 
+ * Fait:
+ * JR-13/12/2016-Creation du squelette.
+ --> ]
+#SET{picto,#ENV{objet}|objet_icone{16}}
+<BOUCLE_resa_grp(RESA_GRPS){id_resa_grp}{tout}></BOUCLE_resa_grp>
+<B_objets>
+<div class="liste-objets [(#ENV{objet}|objet_info{table_objet})]">
+<table class='spip liste'>
+[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{#ENV{objet}|objet_info{info_1_objet},#ENV{objet}|objet_info{info_nb_objets}}})</strong></caption>]
+	<thead>
+		<tr class='first_row'>
+			<th class='picto' scope='col'></th>
+			<th class='titre principale' scope='col'><:info_titre:></th>
+			<th class='id' scope='col'><:info_numero_abbreviation:></th>
+		</tr>
+	</thead>
+	<tbody>
+	<BOUCLE_objets(EVENEMENTS){id_evenement}>
+		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+			<td class='picto'>#GET{picto}</td>
+			<td class='titre principale'><a
+							href="[(#ID_EVENEMENT|generer_url_entite{#ENV{objet}})]"
+							title="<:info_numero_abbreviation|attribut_html:> #ID_EVENEMENT">[(#TITRE|sinon{<:info_sans_titre:>})]</a>
+			</td>
+			<td class='id'>[(#AUTORISER{modifier,#OBJET,#ID_EVENEMENT}|?{
+				[<a href="[(#ID_EVENEMENT|generer_url_ecrire_entite_edit{#ENV{objet}})]">(#ID_EVENEMENT)</a>],
+				[(#ENV{objet})]
+			})]</td>
+		</tr>
+	</BOUCLE_objets>
+	</tbody>
+</table>
+</div>
+</B_objets>[
+<div class="liste-objets [(#ENV{objet}|objet_info{table_objet})] caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+]<//B_objets>

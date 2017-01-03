@@ -1,0 +1,28 @@
+[(#REM) <!-- 
+ * Appel du formulaire d'edition d'un groupement de reservation.
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/inclure/ - Saisies
+ * --
+ * @todo : 
+ * Fait:
+ * JR-06/12/2016-Creation du squelette.
+ --> ]
+
+[(#AUTORISER{creer,resa_grp,oui}|sinon_interdire_acces)]
+
+<div id="cadre-titre-article">
+ 	 <!-- affichage du logo de l'article ou de sa rubrique avec lien vers cette rubrique -->
+	<div class="logorub">
+	    [(#LOGO_ARTICLE_RUBRIQUE||image_reduire{#CONFIG{escal/config/taillelogoart,150}})]
+  	</div>
+	<div id="titre-article" "><:grouperesa:icone_creer_resa_grp:></div>
+
+</div>
+
+<div id=cadre-article>
+	[(#FORMULAIRE_EDITER_RESA_GRP{#ENV{id_resa_grp,oui}, #ENV{id_evenement}, #ENV{url}, #ENV{associer_objet}})]
+</div>

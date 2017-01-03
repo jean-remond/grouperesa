@@ -1,0 +1,55 @@
+[(#REM) <!-- 
+ * Pilote d'edition d'un modele de groupement de réservation.
+ *
+ * @plugin     Groupement de Reservations
+ * @copyright  2016
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/grouperesa/prive/squelettes/contenu/ - Saisie
+ * --
+ * @todo : 
+ * Fait:
+ * JR-27/11/2016-Ajout appel resa_bgrp a copier comme base d'infos.
+ * JR-26/11/2016-Cree par La Fabrique.
+ --> ]
+
+
+[(#ID_RESA_MGRP|oui)
+	[(#AUTORISER{modifier,resa_mgrp,#ID_RESA_MGRP}|sinon_interdire_acces)]
+	<h3><INCLURE{fond=prive/objets/contenu/resa_mgrp_origine, env} /></h3>
+
+ 
+	#SET{redirect,#ENV{redirect}|sinon{#ID_RESA_MGRP|?{#ID_RESA_MGRP|generer_url_entite{resa_mgrp},#URL_ECRIRE{resa_mgrps}}}}
+
+
+
+	<div class="cadre-formulaire-editer">
+	<div class="entete-formulaire">
+		[(#GET{redirect}|icone_verticale{<:icone_retour:>,resa_mgrp,'',left retour[(#ENV{retourajax,''}|oui)ajax preload]})]
+		[
+			[(#ID_RESA_MGRP|?{<:resa_mgrp:icone_modifier_resa_mgrp:>,<:resa_mgrp:icone_creer_resa_mgrp:>})]
+			<h1>(#ENV{titre,#INFO_TITRE{resa_mgrp,#ID_RESA_MGRP}|sinon{<:info_sans_titre:>}})</h1>
+		]
+	</div>
+
+
+	#SET{redirect,#ENV{redirect,#ID_RESA_MGRP|generer_url_entite{resa_mgrp}}}
+	[(#ENV{retourajax,''}|oui)
+		#SET{redirect,'javascript:if (window.jQuery) jQuery(".entete-formulaire .retour a").followLink();'}
+		<div class="ajax">
+	]
+		[(#FORMULAIRE_EDITER_RESA_MGRP{#ENV{id_resa_mgrp,oui}, #GET{redirect}, #ENV{associer_objet}})]
+	[(#ENV{retourajax,''}|oui)
+		</div>
+		<script type="text/javascript">/*<!\[CDATA\[*/reloadExecPage('#ENV{exec}');/*\]\]>*/</script>
+	]
+	</div>
+
+]
+
+[(#ID_RESA_MGRP|non)
+	[(#AUTORISER{creer,resa_mgrp}|sinon_interdire_acces)]
+	[(#REM) * JR-27/11/2016-Ajout appel resa_bgrp a copier comme base d'infos. ]
+	#FORMULAIRE_RESA_BGRP_ACOPIER{#ENV{redirect}}
+	#SET{redirect,#ENV{redirect}}
+]
