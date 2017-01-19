@@ -1,5 +1,6 @@
-Recherche plan de table :
------------------------
+----------------------------------
+Recherche du plan de table AGN2017 :
+----------------------------------
 SELECT evt.titre, evt.id_evenement, evt.id_article, 
 	evt.date_debut, evt.date_fin, evt.places,
 	grp.titre, grp.place_grp,
@@ -12,11 +13,39 @@ FROM `spip_evenements` as evt
 		ON (motl.id_mot=mot.id_mot)
 	LEFT JOIN `spip_resa_grps` as grp
 		ON (evt.id_evenement=grp.id_evenement)
+	LEFT JOIN `spip_resa_grps_liens` as grpl
+		ON (grp.id_resa_grp=grpl.id_resa_grp
+			AND grpl.objet='reservations_detail')
 	LEFT JOIN `spip_reservations_details` as det
-		ON (grp.id_resa_grp=det.id_resa_grp)
+		ON (grpl.id_objet=det.id_reservations_detail)
 	JOIN `spip_reservations` as res
 		ON (det.id_reservation=res.id_reservation)
 		
-where evt.id_article=53 and evt.inscription=1
+where evt.id_article IN(53, 64) and evt.inscription=1
 
 and mot.type='type_reservation' and mot.titre='regroupe'
+
+----------------------------------
+Recherche des reservations AGN2017 :
+----------------------------------
+SELECT evt.titre as evt_titre, evt.id_evenement, evt.id_article, 
+	evt.date_debut, evt.date_fin, evt.places as evt_places,
+	det.statut, res.reference, res.nom, res.email, res.id_reservation, 
+	grp.titre as grp_titre, grp.place_grp as grp_places
+
+FROM `spip_evenements` as evt
+	LEFT JOIN `spip_reservations_details` as det
+		ON (evt.id_evenement=det.id_evenement)
+	JOIN `spip_reservations` as res
+		ON (det.id_reservation=res.id_reservation)
+	LEFT JOIN `spip_resa_grps_liens` as grpl
+		ON (det.id_reservations_detail=grpl.id_objet
+			AND grpl.objet='reservations_detail')
+	LEFT JOIN `spip_resa_grps` as grp
+		ON (grpl.id_resa_grp=grp.id_resa_grp)
+		
+WHERE evt.id_article IN(64) AND evt.inscription=1
+
+ORDER BY res.email, res.nom
+
+

@@ -23,9 +23,17 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'cfg_exemple' => 'Exemple',
 	'cfg_exemple_explication' => 'Explication de cet exemple',
 	'cfg_titre_parametrages' => 'Paramétrages',
+	'colonne_date' => 'Date_Reservation',
+	'colonne_descriptif' => 'Descriptif',
+	'colonne_email' => 'Email',
+	'colonne_nom' => 'Nom',
+	'colonne_quantite' => 'Quantite',
+	'colonne_reference' => 'Reference',
+	'colonne_resa_grp_titre' => 'Groupe',
+	'colonne_statut' => 'Statut',
 
 	// G
-	'grp_dispo' => 'Table(s) disponible(s)',
+	'grp_dispo' => 'Votre table',
 	'grp_dispo_exp' => 'Choisissez parmi ces tables ou créez-en une nouvelle',
 
 	// I
