@@ -19,7 +19,6 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// C
-	'grouperesa_titre' => 'Groupement de Réservation',
 	'cfg_exemple' => 'Exemple',
 	'cfg_exemple_explication' => 'Explication de cet exemple',
 	'cfg_titre_parametrages' => 'Paramétrages',
@@ -33,6 +32,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'colonne_statut' => 'Statut',
 
 	// G
+	'grouperesa_titre' => 'Groupement de Réservation',
 	'grp_dispo' => 'Votre table',
 	'grp_dispo_exp' => 'Choisissez parmi ces tables ou créez-en une nouvelle',
 
