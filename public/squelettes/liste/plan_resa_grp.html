@@ -9,6 +9,9 @@
  * --
  * @todo : 
  * Fait:
+ * JR-24/01/2017-Affichage responsive 
+ * 	(d'apres http://creersonsiteweb.net/page-bootstrap-tableau-table-responsive-design ). 
+ * JR-24/01/2017-Revue structure table et supp STATUT.
  * JR-12/12/2016-Revue pour integrer resa_grps_liens.
  * JR-27/11/2016-Creation du squelette.
  --> ]
@@ -27,9 +30,12 @@
 			<BOUCLE_groupes(RESA_GRPS){id_evenement}{tout}>
 			<tr>
 				<td>
+				<hr />
 				<h3>#_groupes:TITRE</h3>
 				<p>#_groupes:DESCRIPTIF  </p>
 	
+				<div class="responsive-table-line" style="margin:0px auto;max-width:700px;">
+				<table class="table table-bordered table-condensed table-body-center plan_occupant" >
 				<B_groupes_liens>	
 					<p>[(#TOTAL_BOUCLE|singulier_ou_pluriel{grouperesa:info_1_place_occ,grouperesa:info_nb_places_occ})],
 						[(#_groupes:PLACE_GRP|moins{#TOTAL_BOUCLE}|singulier_ou_pluriel{grouperesa:info_1_place_dispo,grouperesa:info_nb_places_dispos})]
@@ -37,19 +43,23 @@
 					</p>
 				<BOUCLE_groupes_liens(spip_resa_grps_liens){id_resa_grp=#_groupes:ID_RESA_GRP}{objet=='reservations_detail'}{tout}>
 
+					#SET{cpt_convive,#COMPTEUR_BOUCLE}
 					<B_reservations_details>
 					<BOUCLE_reservations_details(RESERVATIONS_DETAILS){id_reservations_detail=#_groupes_liens:ID_RESERVATIONS_DETAIL}{tout}>
-					<table>
 
 						<BOUCLE_reservations(RESERVATIONS){id_reservation=#_reservations_details:ID_RESERVATION}{tout}>
-						<tr>
-							<td class="plan_occupant">
+
+							[(#GET{cpt_convive}|alterner{'<tr>','',''})]
+							<td>
 								<BOUCLE_auteur(AUTEURS){id_auteur=#_reservations:ID_AUTEUR}{tout}>
-									<p>#NOM, #_reservations:REFERENCE, #_reservations_details:STATUT</p>
+									<p>#NOM, #_reservations:REFERENCE</p>
 								</BOUCLE_auteur>
 								</B_auteur>
-									<p>#_reservations:NOM, #_reservations:REFERENCE, #_reservations_details:STATUT</p>
+									<p>#_reservations:NOM, #_reservations:REFERENCE</p>
 								<//B_auteur>
+							</td>
+							[(#GET{cpt_convive}|alterner{'','','</tr>'})]
+							
 						</BOUCLE_reservations>
 
 					</BOUCLE_reservations_details>
@@ -57,13 +67,14 @@
 					</B_reservations_details>
 						
 					<//B_reservations_details>
-					</table>
 
 				</BOUCLE_groupes_liens>
 				</B_groupes_liens>
-						<p>[(#_groupes:PLACE_GRP|singulier_ou_pluriel{grouperesa:info_1_place_dispo,grouperesa:info_nb_places_dispos})]
+						<p>[(#_groupes:PLACE_GRP|singulier_ou_pluriel{grouperesa:info_1_place_dispo,grouperesa:info_nb_places_dispos})]</p>
 				<//B_groupes_liens>
-				
+				</table>
+				</div>
+
 			</BOUCLE_groupes>
             
 		</BOUCLE_evenements>
