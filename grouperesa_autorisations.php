@@ -8,7 +8,7 @@
  * @licence    GNU/GPL
  * @package    SPIP\grouperesa\ - Autorisations
  * ----
- * @todo :
+ * @todo : JR-28/01/2017-Specialisation autorisation creer resa_grp_public.
  * Fait :
  * JR-16/12/2016-Creation du fihier.
  * JR-26/11/2016-Cree par La Fabrique.
@@ -242,6 +242,8 @@ function autoriser_resagrps_menu_dist($faire, $type, $id, $qui, $opt){
 /**
  * Autorisation de créer (resagrp)
  *
+ * JR-28/01/2017-Specialisation autorisation creer resa_grp_public.
+ *
  * @param  string $faire Action demandée
  * @param  string $type  Type d'objet sur lequel appliquer l'action
  * @param  int    $id    Identifiant de l'objet
@@ -250,6 +252,24 @@ function autoriser_resagrps_menu_dist($faire, $type, $id, $qui, $opt){
  * @return bool          true s'il a le droit, false sinon
  **/
 function autoriser_resagrp_creer_dist($faire, $type, $id, $qui, $opt) {
+	return true;
+}
+function autoriser_resagrppublic_creer_dist($faire, $type, $id, $qui, $opt) {
+// A faire : Si aucun modele clonable, on refuse.
+	$id_evenement=$opt['id_evenement'];
+	// Rechercher pour le groupe-mot 'type_reservation' le mot associe a evenement
+	$resafrom = array(
+			'spip_resa_mgrps_liens ml',
+			'spip_resa_mgrps m',
+	);
+	$resawhere = array(
+			'ml.objet = "evenement"',
+			'ml.id_objet = ' . intval($id_evenement),
+			'ml.id_resa_mrgp = m.id_resa_mgrp',
+			'm.clonage = "oui"',
+	);
+	
+	//return sql_countsel($resafrom, $resawhere) ? false : true;
 	return true;
 }
 
