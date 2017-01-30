@@ -13,6 +13,7 @@
  * --
  * @todo : JR-18/12/2016-Utiliser F(grouperesa_evenement_regroupe) pour eviter le squelette inc-reservations_evenements-resa_grp.html.
  * Fait:
+ * JR-30/01/2017-Specialisation autorisation creer resa_grp public.
  * JR-06/12/2016-Ajout bouton creation nouveau groupe.
  * JR-03/12/2016-Utilisation de la Saisie Resa_grps.
  * JR-20/11/2016-Creation de la noisette pour gerer le groupe de reservation (ici les tables).
@@ -28,7 +29,7 @@
 	})]
 </div>
 
-[(#AUTORISER{creer,resa_grp,'new'})
+[(#AUTORISER{creer,resa_grp_public,'new', null, array('id_evenement' => #ENV{id_evenement})})
 	<div class="regroupe_action">
 	[(#URL_PAGE{resa_groupe}|
 		parametre_url{id_resa_grp,'new'}|

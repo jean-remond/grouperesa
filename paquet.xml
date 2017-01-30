@@ -1,7 +1,7 @@
 <paquet
 	prefix='grouperesa'
 	categorie='date'
-	version="1.6.2"
+	version="1.7.0"
 	etat='dev'
 	compatibilite='[3.1.0;3.1.*]'
 	logo='prive/themes/spip/images/grouperesa-64.png'
@@ -9,6 +9,8 @@
 	schema='201612171840' 
 >
 <!--
+ * JR-30/01/2017-V1.7.0-201612171840-Creation autorisation creer resa_grp_public.
+ * JR-28/01/2017-V1.6.3-201612171840-Affinage choix de saisie des groupes avec statut <> refuse ou poubelle.
  * JR-25/01/2017-V1.6.2-201612171840-Affichage en choix des seuls groupes ayant des places disponibles.
  * JR-24/01/2017-V1.6.1-201612171840-Revue structure table et supp STATUT pour plan de table.
  * JR-17/01/2017-V1.6.0-201612171840-Exporter csv.
