@@ -9,6 +9,9 @@
  * --
  * @todo : 
  * Fait:
+ * JR-06/02/2017-Affinage du compatge des reservations pour les statuts actifs. 
+ * JR-06/02/2017-Filtrage des reservations pour les statuts actifs. 
+ * JR-01/02/2017-Filtrage des groupes pour les statuts actifs. 
  * JR-24/01/2017-Affichage responsive 
  * 	(d'apres http://creersonsiteweb.net/page-bootstrap-tableau-table-responsive-design ). 
  * JR-24/01/2017-Revue structure table et supp STATUT.
@@ -27,27 +30,28 @@
 			<th>
 			<h2>#TITRE, #DATE_DEBUT, #DATE_FIN</h2>
 
-			<BOUCLE_groupes(RESA_GRPS){id_evenement}{tout}>
+			<BOUCLE_groupes(RESA_GRPS){id_evenement}{statut IN prop,prepa,publie}{par num titre, titre}>
 			<tr>
 				<td>
 				<hr />
 				<h3>#_groupes:TITRE</h3>
 				<p>#_groupes:DESCRIPTIF  </p>
+				#SET{cpt_convive,0}
 	
 				<div class="responsive-table-line" style="margin:0px auto;max-width:700px;">
 				<table class="table table-bordered table-condensed table-body-center plan_occupant" >
 				<B_groupes_liens>	
-					<p>[(#TOTAL_BOUCLE|singulier_ou_pluriel{grouperesa:info_1_place_occ,grouperesa:info_nb_places_occ})],
-						[(#_groupes:PLACE_GRP|moins{#TOTAL_BOUCLE}|singulier_ou_pluriel{grouperesa:info_1_place_dispo,grouperesa:info_nb_places_dispos})]
-						[(#_groupes:PLACE_GRP|moins{#TOTAL_BOUCLE}|non)<:grouperesa:info_0_place_dispo:>]
+					<p>[(#GET{cpt_convive}|singulier_ou_pluriel{grouperesa:info_1_place_occ,grouperesa:info_nb_places_occ}),]
+						[(#_groupes:PLACE_GRP|moins{#GET{cpt_convive}}|singulier_ou_pluriel{grouperesa:info_1_place_dispo,grouperesa:info_nb_places_dispos})]
+						[(#_groupes:PLACE_GRP|moins{#GET{cpt_convive}}|non)<:grouperesa:info_0_place_dispo:>]
 					</p>
-				<BOUCLE_groupes_liens(spip_resa_grps_liens){id_resa_grp=#_groupes:ID_RESA_GRP}{objet=='reservations_detail'}{tout}>
+				<BOUCLE_groupes_liens(spip_resa_grps_liens){id_resa_grp}{objet='reservations_detail'}{tout}>
 
-					#SET{cpt_convive,#COMPTEUR_BOUCLE}
 					<B_reservations_details>
-					<BOUCLE_reservations_details(RESERVATIONS_DETAILS){id_reservations_detail=#_groupes_liens:ID_RESERVATIONS_DETAIL}{tout}>
+					<BOUCLE_reservations_details(RESERVATIONS_DETAILS){id_reservations_detail}{statut !IN 'refuse', 'poubelle'}>
 
-						<BOUCLE_reservations(RESERVATIONS){id_reservation=#_reservations_details:ID_RESERVATION}{tout}>
+						<BOUCLE_reservations(RESERVATIONS){id_reservation}{statut !IN 'refuse', 'poubelle'}>
+							[(#SET{cpt_convive,#GET{cpt_convive}|plus{1}})]
 
 							[(#GET{cpt_convive}|alterner{'<tr>','',''})]
 							<td>
