@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="#LANG_DIR" lang="#LANG" >
+
+[(#REM) JR-03/02/2017-Page pour visualiser l'export des reservations (Provisoire) ]
+
+<BOUCLE_article_principal(ARTICLES){id_article}>
+
+  <head>
+      <title>[(#TITRE|textebrut) -] [[(#NOM_SITE_SPIP|textebrut)]]</title>
+      <meta name="Description" content="[(#INTRODUCTION|couper{150}|textebrut)]" />
+      [<link rel="canonical" href="(#URL_ARTICLE|url_absolue)" />]
+      <meta name="Keywords" content=" <BOUCLE_keywords(MOTS){id_article}{","}>#TITRE </BOUCLE_keywords>" />
+      <meta name="Author" content="<BOUCLE_author(AUTEURS){id_article}{", "}{lang_select}>#NOM </BOUCLE_author>" />
+      <INCLURE {fond=inclusions/inc-head, env}>
+      <BOUCLE_couleur_article(HIERARCHIE){id_rubrique}{id_article}{0,1}>
+      [<link href="(#CHEMIN{styles/secteur#ID_SECTEUR.css}|direction_css)" rel="stylesheet" type="text/css" />]
+      </BOUCLE_couleur_article>
+
+
+      [(#REM) appel de la feuille de style pour l'impression ]
+      <link media="print" href="#CHEMIN{styles/imprime.css}" rel="stylesheet" type="text/css" />
+  </head>
+  <body id="top" [(#CONFIG{escal/config/menuH}|=={non}|non) onload="setHover('menu')"] class="page-article article#ID_ARTICLE rubrique#ID_RUBRIQUE">
+    <div id="ombre-gauche">
+      <div id="ombre-droite">
+        <div id="conteneur">
+
+          [(#CONFIG{escal/config/espace}|=={haut}|oui)
+              <INCLURE {fond=inclusions/inc-espace_article}{env}>
+          ]
+
+          <div id="entete">
+            <INCLURE {fond=inclusions/inc-bandeau}{env}>
+
+            [(#CONFIG{escal/config/menuH}|=={non}|non)
+              [(#CONFIG{escal/config/rubniveaudeux}|=={oui}|non)
+                [(#CONFIG{escal/config/articlesmenuH}|=={oui}|oui)<INCLURE {fond=inclusions/inc-menuart}{env}>]
+                [(#CONFIG{escal/config/articlesmenuH}|=={oui}|non)<INCLURE {fond=inclusions/inc-menu}{env}>]
+              ]
+              [(#CONFIG{escal/config/rubniveaudeux}|=={oui}|oui)
+                [(#CONFIG{escal/config/articlesmenuH}|=={oui}|oui)<INCLURE {fond=inclusions/inc-menu2eniveauart}{env}>]
+                [(#CONFIG{escal/config/articlesmenuH}|=={oui}|non)<INCLURE {fond=inclusions/inc-menu2eniveau}{env}>]
+              ]
+            ]
+
+          </div>
+
+          [(#CONFIG{escal/config/espace}|=={haut}|non)
+              <INCLURE {fond=inclusions/inc-espace_article}{env}>
+          ]
+          <div class="nettoyeur"></div>
+
+          <BOUCLE_article_central(ARTICLES){id_article}{doublons}>
+
+            <div id="page">
+              <div id="contenu" class="contenu-article">
+				[(#INCLURE{fond=prive/transmettre/evenements_reservations-revue}{env})]
+              </div>
+            </div>
+
+            [(#LANG_DIR|=={ltr}|oui)<div id="navigation">] [(#LANG_DIR|=={rtl}|oui)<div id="extra">]
+
+          <!-- affichage du formulaire de recherche-->
+            [(#CONFIG{escal/config/formrecherche}|=={colgauche}|oui)#FORMULAIRE_RECHERCHE<br />]
+
+            <!-- affichage des 2 menus verticaux par defaut ou si selectionnes dans la page de configuration -->
+
+
+
+         <!-- affichage des noisettes selectionnees dans la page de configuration -->
+         [(#CONFIG{escal/config/blocnavart1}|=={rien}|non)
+           <div class="cadre-couleur"><INCLURE {fond=inclusions/inc-#CONFIG{escal/config/blocnavart1,choixmenuV1}}{id_rubrique}{env}{ajax}></div>
+         ]
+         [(#CONFIG{escal/config/blocnavart2}|=={rien}|non)
+           <div class="cadre-couleur"><INCLURE {fond=inclusions/inc-#CONFIG{escal/config/blocnavart2,choixmenuV2}}{id_rubrique}{env}{ajax}></div>
+         ]
+         [(#CONFIG{escal/config/blocnavart3}|=={rien}|non)
+           <div class="cadre-couleur"><INCLURE {fond=inclusions/inc-#CONFIG{escal/config/blocnavart3,acces_direct}}{id_rubrique}{env}{ajax}></div>
+         ]
+         [(#CONFIG{escal/config/blocnavart4}|oui) [(#CONFIG{escal/config/blocnavart4}|=={rien}|non)
+           <div class="cadre-couleur"><INCLURE {fond=inclusions/inc-#CONFIG{escal/config/blocnavart4}}{id_rubrique}{env}{ajax}></div>
+         ]]
+         [(#CONFIG{escal/config/blocnavart5}|oui) [(#CONFIG{escal/config/blocnavart5}|=={rien}|non)
+           <div class="cadre-couleur"><INCLURE {fond=inclusions/inc-#CONFIG{escal/config/blocnavart5}}{id_rubrique}{env}{ajax}></div>
+         ]]
+         [(#CONFIG{escal/config/blocnavart6}|oui) [(#CONFIG{escal/config/blocnavart6}|=={rien}|non)
+           <div class="cadre-couleur"><INCLURE {fond=inclusions/inc-#CONFIG{escal/config/blocnavart6}}{id_rubrique}{env}{ajax}></div>
+         ]]
+
+            </div>
+
+            [(#LANG_DIR|=={ltr}|oui)<div id="extra">] [(#LANG_DIR|=={rtl}|oui)<div id="navigation">]
+
+          <!-- affichage du formulaire de recherche-->
+            [(#CONFIG{escal/config/formrecherche}|=={coldroite}|oui)#FORMULAIRE_RECHERCHE<br />]
+
+              <BOUCLE_test2(RUBRIQUES){id_secteur}{titre_mot==^(trombino|forum)$} >
+              </BOUCLE_test2>
+              </B_test2>
+
+         <!-- affichage des noisettes selectionnees dans la page de configuration -->
+         [(#CONFIG{escal/config/blocextraart1}|=={rien}|non)
+           <div class="cadre-couleur"><INCLURE {fond=inclusions/inc-#CONFIG{escal/config/blocextraart1,nav_mots}}{id_rubrique}{env}{ajax}></div>
+         ]
+         [(#CONFIG{escal/config/blocextraart2}|=={rien}|non)
+           <div class="cadre-couleur"><INCLURE {fond=inclusions/inc-#CONFIG{escal/config/blocextraart2,meme_rub}}{id_rubrique}{env}{ajax}></div>
+         ]
+         [(#CONFIG{escal/config/blocextraart3}|=={rien}|non)
+           <div class="cadre-couleur"><INCLURE {fond=inclusions/inc-#CONFIG{escal/config/blocextraart3,evenements}}{id_rubrique}{env}{ajax}></div>
+         ]
+         [(#CONFIG{escal/config/blocextraart4}|oui) [(#CONFIG{escal/config/blocextraart4}|=={rien}|non)
+           <div class="cadre-couleur"><INCLURE {fond=inclusions/inc-#CONFIG{escal/config/blocextraart4}}{id_rubrique}{env}{ajax}></div>
+         ]]
+         [(#CONFIG{escal/config/blocextraart5}|oui) [(#CONFIG{escal/config/blocextraart5}|=={rien}|non)
+           <div class="cadre-couleur"><INCLURE {fond=inclusions/inc-#CONFIG{escal/config/blocextraart5}}{id_rubrique}{env}{ajax}></div>
+         ]]
+         [(#CONFIG{escal/config/blocextraart6}|oui) [(#CONFIG{escal/config/blocextraart6}|=={rien}|non)
+           <div class="cadre-couleur"><INCLURE {fond=inclusions/inc-#CONFIG{escal/config/blocextraart6}}{id_rubrique}{env}{ajax}></div>
+         ]]
+              <//B_test2>
+
+            </div>
+
+          </BOUCLE_article_central>
+
+            <div id="page">
+              <div id="contenu">
+              <div id="cadre-rubrique">
+              <div id="titre-rubrique" style="margin:20px 0 20px 20px;">
+                <:escal:erreur404:>
+                </div>
+              </div>
+
+               [(#PLUGIN{SPIP_400}|non)
+              <div class="texte">
+              <:escal:erreur404_message:>
+              </div>
+              ]
+
+               [(#PLUGIN{SPIP_400}|oui)
+              <INCLURE{fond=inclure/inc-erreur}{env}{status=#ENV{status,404}}>
+              ]
+              </div>
+            </div>
+
+          <//B_article_central>
+
+            <div id="pied">
+              <INCLURE {fond=inclusions/inc-pied}{skel=#SQUELETTE}{env}>
+            </div>
+        </div>
+        <!-- fin conteneur -->
+      </div>
+    </div>
+  </body>
+
+</BOUCLE_article_principal>
+
+ <//B_testarticle2>
+
+<//B_testarticle>
+
+</html>
