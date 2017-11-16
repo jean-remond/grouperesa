@@ -2,29 +2,29 @@ Plugin 'Reservation_evenements' de Rainer_Muller
 ---------------------------------
 Objet : Cloturer les inscriptions
 ---------------------------------
-Le 6 février à 16:52par Per’Jean En réponse à : Réservation d’événements
+Le 6 fï¿½vrier ï¿½ 16:52par Perï¿½Jean En rï¿½ponse ï¿½ : Rï¿½servation dï¿½ï¿½vï¿½nements
 
 Bonjour Rainer, enfin, re-bonjour,
 
-Mon plugin de groupement de réservation est en service sur mon site (www.ffessm-agn2017.fr).
-J’ai encore quelques correctifs et améliorations à apporter mais çà fonctionne.
-Je reviens vers toi pour un autre point : maintenant que les réservations sont lancées, il va falloir les stopper un jour.
-L’option de clôture automatique est très bien, mais elle agit seulement à date d’événement.
-Pour mon cas, je dois stopper 3 semaines avant la date d’événement pour contacter les fournisseurs.
-Comment pourrai-je automatiser cette règle, qui est propre à chaque événement ?
+Mon plugin de groupement de rï¿½servation est en service sur mon site (www.ffessm-agn2017.fr).
+Jï¿½ai encore quelques correctifs et amï¿½liorations ï¿½ apporter mais ï¿½ï¿½ fonctionne.
+Je reviens vers toi pour un autre point : maintenant que les rï¿½servations sont lancï¿½es, il va falloir les stopper un jour.
+Lï¿½option de clï¿½ture automatique est trï¿½s bien, mais elle agit seulement ï¿½ date dï¿½ï¿½vï¿½nement.
+Pour mon cas, je dois stopper 3 semaines avant la date dï¿½ï¿½vï¿½nement pour contacter les fournisseurs.
+Comment pourrai-je automatiser cette rï¿½gle, qui est propre ï¿½ chaque ï¿½vï¿½nement ?
 
 Merci de tes pistes de recherche.
-Amitiés jean.
+Amitiï¿½s jean.
 
 
-Le 7 février à 08:33par Rainer Müller En réponse à : Réservation d’événements
+Le 7 fï¿½vrier ï¿½ 08:33par Rainer Mï¿½ller En rï¿½ponse ï¿½ : Rï¿½servation dï¿½ï¿½vï¿½nements
 
 Salut Jean,
 
-à mon avis tu devrais créer un champ extras date_fin_inscription dans la table spip_evenements puis dans formulaires/inc-reservation_evenements.html à la ligne 4 mettre
+ï¿½ mon avis tu devrais crï¿½er un champ extras date_fin_inscription dans la table spip_evenements puis dans formulaires/inc-reservation_evenements.html ï¿½ la ligne 4 mettre
 
     <BOUCLE_art_or (DATA){source tableau,#ENV{evenements}} {id_evenement_source ?} {date_fin_inscription>#DATE} {par date_debut}>
 
-pour empêcher l’inscription , puis évidemment adapter les autres squelettes en questions.
+pour empï¿½cher lï¿½inscription , puis ï¿½videmment adapter les autres squelettes en questions.
 
 Rainer
