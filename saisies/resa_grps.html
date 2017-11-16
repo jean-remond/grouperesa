@@ -9,6 +9,7 @@
  * --
  * @todo : 
  * Fait:
+ * JR-21/02/2017-Correction de la boucle resa_grps_liens.
  * JR-25/01/2017-Affichage en choix des seuls groupes ayant des places disponibles.
  * JR-17/12/2016-Creation du fihier cf codep21resa.
  * JR-02/12/2016-Ajout critere evenement dans la liste.
@@ -22,22 +23,19 @@
 	[(#ENV{cacher_option_intro}|ou{#ENV{multiple}}|non)
 		<option value="">[(#ENV{option_intro})]</option>]
 	<BOUCLE_resa_grps(RESA_GRPS){id_resa_grp?}{id_evenement?}{recherche?}{statut IN prop,prepa,publie}{par num titre, titre}>
-
-		<BOUCLE_groupes_liens(spip_resa_grps_liens){id_resa_grp=#_resa_grps:ID_RESA_GRP}{objet=='reservations_detail'}{tout}>
+		#SET{cpt_resa,0}
+		<BOUCLE_groupes_liens(spip_resa_grps_liens){id_resa_grp}{objet='reservations_detail'}{tout}>
+			<BOUCLE_resa_detail(RESERVATIONS_DETAILS){id_reservations_detail=#ID_OBJET}{statut IN attente_paiement,accepte_part,accepte}>
+				#SET{cpt_resa,#GET{cpt_resa}|plus{1}}
+			</BOUCLE_resa_detail>
 		</BOUCLE_groupes_liens>
 
-		[(#_resa_grps:PLACE_GRP|moins{#_groupes_liens:TOTAL_BOUCLE}|>{0})
+		[(#_resa_grps:PLACE_GRP|moins{#GET{cpt_resa}}|>{0})
 			[(#ENV{multiple}|oui)
 			<option value="#ID_RESA_GRP"[(#ID_RESA_GRP|in_array{#ENV{valeur_forcee,#GET{valeur,#ENV{defaut,#ARRAY}}}}|oui) selected="selected"]>#TITRE</option>]
 			[(#ENV{multiple}|non)
 			<option value="#ID_RESA_GRP"[(#ID_RESA_GRP|=={#ENV{valeur_forcee,#ENV{valeur,#ENV{defaut}}}}|oui) selected="selected"]>#TITRE</option>]
 		]
-
-      <BOUCLE_doc(DOCUMENTS) {id_article}> </BOUCLE_doc>
-        [il y a (#TOTAL_BOUCLE) document(s).]
-      </B_doc>
-
-
 
 	</BOUCLE_resa_grps>
 </select>

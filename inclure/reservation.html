@@ -8,9 +8,10 @@
  * @licence    GNU/GPL
  * @package    SPIP\grouperesa\inclure - Contenu
  * --
- * @todo : JR-07/02/2017-Revoir le codage des criteres sur _resa_grp_liens et _resa_grp.
+ * @todo : 
  * @todo : JR-07/02/2017-Remplir l'objet du courriel avec le nom et no reservation.
  * Fait:
+ * JR-14/02/2017-Revue du codage des criteres sur resa_grp_liens et _resa_grp.
  * JR-14/12/2016-Revue pour utiliser resa_grps_liens.
  * JR-05/12/2016-Copie du source pour inserer id_resa_grp en dur :-().
  --> ]
@@ -20,8 +21,8 @@
 	#SET{details, #ARRAY} #SET{total,0}
 	<BOUCLE_reservation_details(RESERVATIONS_DETAILS){id_reservation}{id_reservations_detail ?}{tout}>
 		#SET{resa_grp_titre,''}
-		<BOUCLE_resa_grp_liens(spip_resa_grps_liens){objet=='reservations_detail'}{id_objet==#ID_RESERVATIONS_DETAIL}{tout}>
-		<BOUCLE_resa_grp(RESA_GRPS){id_resa_grp==#ID_RESA_GRP}{tout}>
+		<BOUCLE_resa_grp_liens(spip_resa_grps_liens){objet='reservations_detail'}{id_objet=#ID_RESERVATIONS_DETAIL}{tout}>
+		<BOUCLE_resa_grp(RESA_GRPS){id_resa_grp}{tout}>
 			#SET{resa_grp_titre,#TITRE}
 		</BOUCLE_resa_grp>
 		</BOUCLE_resa_grp_liens>	
