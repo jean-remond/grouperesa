@@ -1,7 +1,7 @@
 <paquet
 	prefix='grouperesa'
 	categorie='date'
-	version="1.8.2"
+	version="1.8.4"
 	etat='dev'
 	compatibilite='[3.1.0;3.1.*]'
 	logo='prive/themes/spip/images/grouperesa-64.png'
@@ -9,6 +9,8 @@
 	schema='201612171840' 
 >
 <!--
+ * JR-19/03/2017-V1.8.4-201612171840-Plan : Revue  Bcl evenements pour ne pas tenir compte du critere 'inscription'. 
+ * JR-21/02/2017-V1.8.3-201612171840-Saisie_grps : Correction de la boucle resa_grps_liens.
  * JR-14/02/2017-V1.8.2-201612171840-Conf reservation : Revue du codage des criteres sur resa_grp_liens et _resa_grp.
  * JR-06/02/2017-V1.8.1-201612171840-Plan de groupes : Filtrage des reservations pour les statuts actifs.
  * JR-04/02/2017-V1.8.0-201612171840-Visualiser reservations avec les groupes.

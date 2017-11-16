@@ -107,7 +107,7 @@ function formulaires_resa_bgrp_acopier_traiter_dist ($id_resa_mgrp='new', $retou
 	// Creation du modele F(base)
 	$retours = formulaires_editer_objet_traiter('resa_mgrp', $id_resa_mgrp, '', '', $retour, '', $row, $hidden);
 
-	/*$debug1= "DEBUG grouperesa JR : formulaires/resa_bgrp_acopier.php - formulaires_resa_bgrp_acopier_traiter_dist - Pt48 -";
+	$debug1= "DEBUG grouperesa JR : formulaires/resa_bgrp_acopier.php - formulaires_resa_bgrp_acopier_traiter_dist - Pt48 -";
 	spip_log("$debug1.", true);
 	foreach($retours as $key => $value) {
 		spip_log("retours(key)=$key.", true);
@@ -122,7 +122,7 @@ function formulaires_resa_bgrp_acopier_traiter_dist ($id_resa_mgrp='new', $retou
 	}
 	spip_log("hidden=$hidden.", true);
 	spip_log("FIN $debug1.", true);
-	*/
+	
 	
 	// Le retour doit afficher le modele en modification
 	$id_resa_mgrp=$retours[id_resa_mgrp];

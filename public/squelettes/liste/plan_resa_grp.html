@@ -2,14 +2,15 @@
  * Plan des groupes de reservation pour un evennement 
  *
  * @plugin     Groupement de Reservations
- * @copyright  2016
+ * @copyright  2017
  * @author     Jean-Gabriel Remond
  * @licence    GNU/GPL
  * @package    SPIP/grouperesa/public/squelettes/liste - Contenu
  * --
  * @todo : 
  * Fait:
- * JR-06/02/2017-Affinage du compatge des reservations pour les statuts actifs. 
+ * JR-19/03/2017-Revue  Bcl evenements pour ne pas tenir compte du critere 'inscription'. 
+ * JR-06/02/2017-Affinage du comptage des reservations pour les statuts actifs. 
  * JR-06/02/2017-Filtrage des reservations pour les statuts actifs. 
  * JR-01/02/2017-Filtrage des groupes pour les statuts actifs. 
  * JR-24/01/2017-Affichage responsive 
@@ -25,7 +26,7 @@
 		<td>
 		<h1>#TITRE</h1>
 		<table>	
-		<BOUCLE_evenements(EVENEMENTS){id_article}{inscription==1}{type_mot = 'type_reservation'}{titre_mot = 'regroupe'}{par date_debut}>
+		<BOUCLE_evenements(EVENEMENTS){id_article}{type_mot = 'type_reservation'}{titre_mot = 'regroupe'}{par date_debut}>
 		<tr>
 			<th>
 			<h2>#TITRE, #DATE_DEBUT, #DATE_FIN</h2>
